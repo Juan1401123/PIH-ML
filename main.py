@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 import pandas as pd
-Ultimate_df= pd.read_csv('../PIH_ML/Final-Datasets/datos-transformados.csv')
-ml_matrix_df=pd.read_csv('../PIH_ML/Final-Datasets/ml_matrix.csv')
+Ultimate_df= pd.read_csv('../PIH_ML/datos-transformados.csv')
+ml_matrix_df=pd.read_csv('../PIH_ML/ml_matrix.csv')
 import ast
 app=FastAPI()
 
