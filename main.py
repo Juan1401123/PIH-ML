@@ -3,12 +3,21 @@ import pandas as pd
 Ultimate_df= pd.read_csv('datos-transformados.csv')
 ml_matrix_df=pd.read_csv('ml_matrix.csv')
 import ast
-app=FastAPI()
+app=FastAPI(tittle= "Proyecto 1 - Soy Henry")
+
+@app.get("/")
+def presentacion():
+    return {"PI 01 - Juan Amador Arrieta Barragan"}
+
+@app.get("/contacto")
+def contacto():
+    return "Email: juansamadors@gmail.com / Github: juan1401123"
+
 
 
 @app.get('/peliculas_mes/{mes}',tags=['Peliculas por Mes'])
 def peliculas_mes(mes:str):
-    meses={'enero':1,'febrero':2,'marzo':3,'abril':4,'mayo':5,'junio':6,'julio':7,'agosto':8,'septiembre':9,'octubre':10,'noviembre':11,'diciembre':12}
+    meses={'Enero':1,'Febrero':2,'Marzo':3,'Abril':4,'Mayo':5,'Junio':6,'Julio':7,'Agosto':8,'Septiembre':9,'Octubre':10,'Noviembre':11,'Diciembre':12}
 
     dfm=Ultimate_df[Ultimate_df['release_month']==meses[mes]]
     return 'mes:'+mes+' cantidad:'+str(len(dfm))
@@ -54,9 +63,8 @@ def productoras(productora:str):
 
 @app.get('/retorno/{pelicula}',tags=['Ganancia y Retorno por Pelicula'])
 def retorno(pelicula:str):
-    pdf=Ultimate_df[Ultimate_df['title']==pelicula]
-    return 'pelicula:'+pelicula+' inversion:'+str(sum(pdf['budget']))+' ganancia:'+str(sum(pdf['revenue']))+' retorno:'+str(sum(pdf['return']))+' anio:'+str(pdf['release_year'][0])
-
+   pdf=Ultimate_df[Ultimate_df['title']==pelicula]
+   return 'pelicula:'+pelicula+' inversion:'+str(pdf.budget.values[0])+' ganancia:'+str(pdf.revenue.values[0])+' retorno:'+str(pdf['return'].values[0])+' anio:'+str(pdf['release_year'].values[0])
 
 @app.get('/recomendacion/{titulo}',tags=['Recomendacion de Peliculas Similares'])
 def recomendacion(titulo:str):
